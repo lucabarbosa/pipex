@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:50:03 by lbento            #+#    #+#             */
-/*   Updated: 2025/11/04 19:35:16 by lbento           ###   ########.fr       */
+/*   Updated: 2025/11/04 19:36:54 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,5 @@ static int	join_path_and_cmd(char **cmd, char **paths)
 		free(temp);
 		i++;
 	}
-	return (-1);
+	return (0);
 }
