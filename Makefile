@@ -5,6 +5,8 @@ LIBFT		=	libft/libft.a
 INC		=	-I ./src -I ./libft
 OBJ		=	$(patsubst src/%.c, obj/%.o, $(SRC))
 SRC		=	src/pipex.c \
+				src/free_exit.c \
+				src/get_path.c
 
 all:		$(LIBFT) obj $(NAME)
 
