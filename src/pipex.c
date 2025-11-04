@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:26:57 by lbento            #+#    #+#             */
-/*   Updated: 2025/11/04 18:06:07 by lbento           ###   ########.fr       */
+/*   Updated: 2025/11/04 19:35:02 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 int	main(int argc, char **argv, char **envp)
 {
 t_pipex	infos;
+pid_t		pid;
+int		status;
 
 if (argc != 5)
 	error_arguments();
@@ -30,8 +32,7 @@ if (!infos.cmd_2 || !infos.cmd_2[0])
 }
 infos.infile = argv[1];
 infos.outfile = argv[4];
-
-
-
 get_path(infos.cmd_1, envp);
+get_path(infos.cmd_2, envp);
+pid = cmd_pipe_exec(&infos, envp);
 }

@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:50:03 by lbento            #+#    #+#             */
-/*   Updated: 2025/11/04 18:04:59 by lbento           ###   ########.fr       */
+/*   Updated: 2025/11/04 19:35:16 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	get_path(char **cmd, char **envp)
 		free_cmd(cmd, NULL);
 		exit(1);
 	}
-	if (access(cmd[0], F_OK | X_OK) == -1)
+	if (access(cmd[0], X_OK) != 0)
 	{
 		if (join_path_and_cmd(&cmd[0], cmd_paths) == -1)
 		{
@@ -76,7 +76,7 @@ static char	**getting_part_path (char **envp)
 			break ;
 		i++;
 	}
-	if (!envp[i] || !envp[i])
+	if (!envp || !envp[i])
 	{
 		ft_putstr_fd("ERROR: PATH not found\n", 2);
 		return (NULL);
@@ -101,7 +101,7 @@ static int	join_path_and_cmd(char **cmd, char **paths)
 			perror("ERROR: failed to create full command path\n");
 			return (-1);
 		}
-		if (access(temp, F_OK) == 0)
+		if (access(temp, X_OK) == 0)
 		{
 			free(*cmd);
 			*cmd = temp;
