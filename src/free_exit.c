@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:31:42 by lbento            #+#    #+#             */
-/*   Updated: 2025/11/04 18:37:33 by lbento           ###   ########.fr       */
+/*   Updated: 2025/11/05 12:52:01 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	error_arguments(void)
 void	free_cmd(char **array, char *msg)
 {
 	int	i;
-	
+
 	i = 0;
 	if (!array)
 		return ;

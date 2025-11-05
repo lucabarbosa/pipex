@@ -6,15 +6,15 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:50:03 by lbento            #+#    #+#             */
-/*   Updated: 2025/11/05 11:41:40 by lbento           ###   ########.fr       */
+/*   Updated: 2025/11/05 13:44:14 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	get_path(char **cmd, char **envp);
+void		get_path(char **cmd, char **envp);
 static char	**get_envp_path(char **envp);
-static char	**getting_part_path (char **envp);
+static char	**getting_part_path(char **envp);
 static int	join_path_and_cmd(char **cmd, char **paths);
 
 void	get_path(char **cmd, char **envp)
@@ -38,15 +38,18 @@ void	get_path(char **cmd, char **envp)
 	}
 	free_cmd(cmd_paths, NULL);
 	if (access(cmd[0], X_OK) != 0)
-		perror(cmd[0]);
+	{
+		ft_putstr_fd("Command not found: ", 2);
+		ft_putstr_fd(cmd[0], 2);
+	}
 }
 
 static char	**get_envp_path(char **envp)
 {
 	char	**parted_path;
 	char	*temp;
-	int	i;
-	
+	int		i;
+
 	parted_path = getting_part_path(envp);
 	if (!parted_path)
 		return (NULL);
@@ -67,11 +70,11 @@ static char	**get_envp_path(char **envp)
 	return (parted_path);
 }
 
-static char	**getting_part_path (char **envp)
+static char	**getting_part_path(char **envp)
 {
-	int	i;
-	char **parting_path;
-	
+	char	**parting_path;
+	int		i;
+
 	i = 0;
 	while (envp && envp[i])
 	{
@@ -97,7 +100,7 @@ static int	join_path_and_cmd(char **cmd, char **paths)
 {
 	char	*temp;
 	size_t	i;
-	
+
 	i = 0;
 	while (paths && paths[i])
 	{

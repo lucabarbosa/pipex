@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:27:23 by lbento            #+#    #+#             */
-/*   Updated: 2025/11/04 18:58:38 by lbento           ###   ########.fr       */
+/*   Updated: 2025/11/05 12:54:59 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 typedef struct s_pipex
 {
 	int		pipe_rw[2];
-	char		*infile;
-	char		*outfile;
+	char	*infile;
+	char	*outfile;
 	char	**cmd_1;
 	char	**cmd_2;
 }	t_pipex;
