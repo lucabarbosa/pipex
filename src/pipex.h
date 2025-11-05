@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:27:23 by lbento            #+#    #+#             */
-/*   Updated: 2025/11/05 12:54:59 by lbento           ###   ########.fr       */
+/*   Updated: 2025/11/05 15:33:25 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_pipex
 	char	**cmd_2;
 }	t_pipex;
 
+int		is_space(char *str);
+void	empty_command(void);
 void	error_arguments(void);
 void	get_path(char **cmd, char **envp);
 void	free_cmd(char **array, char *argv);
