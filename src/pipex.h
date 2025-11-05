@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:27:23 by lbento            #+#    #+#             */
-/*   Updated: 2025/11/05 15:33:25 by lbento           ###   ########.fr       */
+/*   Updated: 2025/11/05 16:34:06 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,9 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <string.h>
 # include <stdio.h>
 # include <fcntl.h>
-# include <sys/uio.h>
 # include <sys/wait.h>
-# include <sys/types.h>
 # include "../libft/libft.h"
 
 typedef struct s_pipex

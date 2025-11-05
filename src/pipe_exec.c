@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 18:10:50 by lbento            #+#    #+#             */
-/*   Updated: 2025/11/05 13:04:01 by lbento           ###   ########.fr       */
+/*   Updated: 2025/11/05 17:56:17 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ pid_t	cmd_pipe_exec(t_pipex *infos, char **env)
 			exec_cmd(i, infos, env);
 		}
 		close_unused(i, infos, read_end);
-	read_end = infos->pipe_rw[0];
-	i++;
+		read_end = infos->pipe_rw[0];
+		i++;
 	}
 	return (pid);
 }
@@ -58,9 +58,11 @@ static void	set_in_out(int child_i, t_pipex *infos, int last_read_end)
 	{
 		if (close(infos->pipe_rw[0]) == -1)
 			free_and_exit(infos->cmd_1, infos->cmd_2, 1);
-	fds[1] = infos->pipe_rw[1];
+		fds[1] = infos->pipe_rw[1];
 	}
-	if (fds[0] == -1 || fds[1] == -1 || in_out_direction(fds[0], fds[1]) == -1)
+	if (fds[0] == -1 || fds[1] == -1)
+		free_and_exit(infos->cmd_1, infos->cmd_2, 1);
+	if (in_out_direction(fds[0], fds[1]) == -1)
 		free_and_exit(infos->cmd_1, infos->cmd_2, 1);
 }
 
@@ -86,10 +88,15 @@ static int	in_out_direction(int input_fd, int output_fd)
 static void	exec_cmd(int child_i, t_pipex *infos, char **env)
 {
 	if (child_i == 0)
-		execve(infos->cmd_1[0], infos->cmd_1, env);
+	{
+		if (execve(infos->cmd_1[0], infos->cmd_1, env) == -1)
+			free_and_exit(infos->cmd_1, infos->cmd_2, 127);
+	}
 	else
-		execve(infos->cmd_2[0], infos->cmd_2, env);
-	free_and_exit(infos->cmd_1, infos->cmd_2, 127);
+	{
+		if (execve(infos->cmd_2[0], infos->cmd_2, env) == -1)
+			free_and_exit(infos->cmd_1, infos->cmd_2, 127);
+	}
 }
 
 static void	close_unused(int child_i, t_pipex *infos, int read_end)
