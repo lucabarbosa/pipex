@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:50:03 by lbento            #+#    #+#             */
-/*   Updated: 2025/11/04 19:36:54 by lbento           ###   ########.fr       */
+/*   Updated: 2025/11/05 11:41:40 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@ void	get_path(char **cmd, char **envp)
 	{
 		if (join_path_and_cmd(&cmd[0], cmd_paths) == -1)
 		{
-			free_cmd(cmd, NULL);
 			free_cmd(cmd_paths, NULL);
+			free_cmd(cmd, NULL);
 			exit (1);
 		}
 	}
 	free_cmd(cmd_paths, NULL);
+	if (access(cmd[0], X_OK) != 0)
+		perror(cmd[0]);
 }
 
 static char	**get_envp_path(char **envp)
@@ -54,6 +56,7 @@ static char	**get_envp_path(char **envp)
 		temp = ft_strjoin(parted_path[i], "/");
 		if (!temp)
 		{
+			perror("Strjoin");
 			free_cmd(parted_path, NULL);
 			return (NULL);
 		}
@@ -72,7 +75,7 @@ static char	**getting_part_path (char **envp)
 	i = 0;
 	while (envp && envp[i])
 	{
-		if (ft_strnstr(envp[i], "PATH=", 5) != NULL)
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 			break ;
 		i++;
 	}
@@ -83,7 +86,10 @@ static char	**getting_part_path (char **envp)
 	}
 	parting_path = ft_split(envp[i] + 5, ':');
 	if (!parting_path)
+	{
+		perror("Split");
 		return (NULL);
+	}	
 	return (parting_path);
 }
 
