@@ -6,14 +6,16 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 16:31:42 by lbento            #+#    #+#             */
-/*   Updated: 2025/11/04 18:37:33 by lbento           ###   ########.fr       */
+/*   Updated: 2025/11/05 15:33:52 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+int		is_space(char *str);
 void	error_arguments(void);
 void	free_cmd(char **array, char *argv);
+void	empty_command(void);
 void	free_and_exit(char **cmd_1, char **cmd_2, int exit_status);
 
 void	error_arguments(void)
@@ -24,10 +26,16 @@ void	error_arguments(void)
 	exit (1);
 }
 
+void	empty_command(void)
+{
+	ft_putstr_fd(" : command not found\n", 2);
+	exit (127);
+}
+
 void	free_cmd(char **array, char *msg)
 {
 	int	i;
-	
+
 	i = 0;
 	if (!array)
 		return ;
@@ -40,7 +48,7 @@ void	free_cmd(char **array, char *msg)
 	if (msg)
 	{
 		perror(msg);
-		exit (1);
+		exit (127);
 	}
 }
 
@@ -51,4 +59,20 @@ void	free_and_exit(char **cmd_1, char **cmd_2, int exit_status)
 	free_cmd(cmd_1, NULL);
 	free_cmd(cmd_2, NULL);
 	exit(exit_status);
+}
+
+int	is_space(char *str)
+{
+	int	i;
+
+	if (!str || !str[0])
+		return (1);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
+			return (0);
+		i++;
+	}
+	return (1);
 }
